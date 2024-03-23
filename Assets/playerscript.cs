@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class playerscript : MonoBehaviour
     public LayerMask grass;
     public float jumpPower;
     private bool isGrounded;
+    private bool isFacingRight = true;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -25,16 +28,37 @@ public class playerscript : MonoBehaviour
     {
         PlayerInput();
         PlayerMove();
-        flyCheker();
+        flyChecker();
+        rotationChecker();
+        animationChecker();
     }
 
-    void flyCheker()
+    void flyChecker()
     {
         if (cc2d.IsTouchingLayers(grass.value))
         {
             isGrounded = true;
         }
         else isGrounded = false;
+    }
+
+    void Flip()
+    {
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0f, 180f, 0f);
+    }
+
+    void rotationChecker()
+    {
+        if (horizontalMove > 0 && !isFacingRight) Flip();
+        if (horizontalMove < 0 && isFacingRight) Flip();
+    }
+
+    void animationChecker()
+    {
+        animator.SetFloat("HMove", MathF.Abs(horizontalMove));
+        animator.SetFloat("VMove", rb.velocity.y);
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     void PlayerInput()
