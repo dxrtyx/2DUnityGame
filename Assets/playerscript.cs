@@ -10,11 +10,13 @@ public class playerscript : MonoBehaviour
     private float horizontalMove;
     private bool verticalMove;
     public int speed;
+    public float health = 3;
     public LayerMask grass;
     public float jumpPower;
     private bool isGrounded;
     private bool isFacingRight = true;
     public Animator animator;
+    public Transform cutter;
 
     // Start is called before the first frame update
     void Start()
@@ -78,5 +80,28 @@ public class playerscript : MonoBehaviour
         {
             rb.AddForce(new Vector2(rb.velocity.x, jumpPower));
         }
+    }
+    public void TakeDamage(float damage)
+    {
+    
+        health -= damage;
+
+        Vector3 theScale = cutter.localScale;
+        theScale.x += 0.1015f * damage;
+        cutter.localScale = theScale;
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        health = 3;
+        Vector3 theScale = cutter.localScale;
+        theScale.x = 0;
+        cutter.localScale = theScale;
+        transform.position = new Vector3(-5.14177f, 0.483f);
     }
 }
