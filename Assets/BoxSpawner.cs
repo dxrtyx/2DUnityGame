@@ -6,11 +6,12 @@ public class BoxSpawner : MonoBehaviour
 {
     public GameObject[] boxes;
     public int clocker;
-    // Start is called before the first frame update
+    
     void Start()
     {
         StartCoroutine(spawnTimer());
     }
+    
     void Spawn()
     {
         int boxId = Random.Range(0, boxes.Length);
@@ -29,9 +30,8 @@ public class BoxSpawner : MonoBehaviour
         Spawn();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // void Update()
+    // {
         
-    }
+    // }
 }

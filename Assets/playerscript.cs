@@ -5,27 +5,25 @@ using UnityEngine;
 
 public class playerscript : MonoBehaviour
 {
+    public LayerMask grass;
     private Rigidbody2D rb;
+    public Transform cutter;
+    public Animator animator;
     private CapsuleCollider2D cc2d;
-    private float horizontalMove;
-    private bool verticalMove;
     public int speed;
     public float health = 3;
-    public LayerMask grass;
     public float jumpPower;
+    private float horizontalMove;
     private bool isGrounded;
+    private bool verticalMove;
     private bool isFacingRight = true;
-    public Animator animator;
-    public Transform cutter;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         cc2d = GetComponent<CapsuleCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         PlayerInput();
@@ -76,16 +74,16 @@ public class playerscript : MonoBehaviour
     void PlayerMove()
     {
         rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+
         if (verticalMove)
         {
             rb.AddForce(new Vector2(rb.velocity.x, jumpPower));
         }
     }
+    
     public void TakeDamage(float damage)
     {
-    
         health -= damage;
-
         Vector3 theScale = cutter.localScale;
         theScale.x += 0.1015f * damage;
         cutter.localScale = theScale;
