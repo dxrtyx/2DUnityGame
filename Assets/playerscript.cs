@@ -6,7 +6,7 @@ using UnityEngine;
 public class playerscript : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private CircleCollider2D cc2d;
+    private CapsuleCollider2D cc2d;
     private float horizontalMove;
     private bool verticalMove;
     public int speed;
@@ -20,7 +20,7 @@ public class playerscript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        cc2d = GetComponent<CircleCollider2D>();
+        cc2d = GetComponent<CapsuleCollider2D>();
     }
 
     // Update is called once per frame
